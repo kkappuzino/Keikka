@@ -9,9 +9,9 @@ const App = () => {
 
   useEffect(() => {
     axios
-      .get('http://localhost:3001/notes')
+      .get('http://localhost:3000/notes')
       .then(response => {
-        setNotes(response.data)
+        setNotes(response.json)
       })
   }, [])
 
