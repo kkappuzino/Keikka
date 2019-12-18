@@ -10,7 +10,7 @@ import Gigs from './Gigs';
 export default function Page() {
     return(
         <div className="container-fluid">
-            <Gigs/>
+            <Gigs />
 
         </div>
 

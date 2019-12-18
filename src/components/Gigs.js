@@ -1,33 +1,43 @@
 import React, { useState, useEffect } from 'react'
-import axios from 'axios'
+import gigService from'../services/gigs';
 import '../style/basic.scss';
-import '../App';
+
+const Gig = ({gig}) => {
+    return(
+    <div className="col-3 col-sm-3 col-md-3" >
+        <img className="py-5" src={gig.img} alt={gig.name}/>
+        <div className="pt-4">
+            <h2>{gig.name}</h2>
+            <h3>{gig.date}</h3>
+            <br/>
+            <p>{gig.desc}</p>
+            <p>{gig.tags}</p>
+        </div>
+    </div>
+    )
+}
 
 
-export default function Gigs (props){
+
+const Gigs = () => {
     const [gigs, setGigs] = useState([]) 
     const [newGig, setNewGig] = useState('') 
-    const [showAll, setShowAll] = useState('')
+    const [showAll, setShowAll] = useState(true)
 
     useEffect(() => {
-        console.log('effect')
-        axios
-            .get('http://localhost:3000/gigs')
-            .then(response => {
-            setGigs(response.json)
+        
+        gigService
+            .getAll()
+            .then(allGigs =>{
+                console.log('effect')
+                console.log(allGigs)
+                setGigs(allGigs)
             })
     }, [])
 
     const gigsToShow = showAll
     ? gigs
-    : gigs.filter(gig => {
-        return gig.tags.includes ='music';
-    });
-
-    const rows = () => gigsToShow.map(gig =>
-        <Gig/>
-    )
-
+    : gigs.filter(gig => gig.tags.includes('music'))
 
     const handleGigChange = (event) => {
         console.log(event.target.value)
@@ -53,24 +63,11 @@ export default function Gigs (props){
                 show {showAll ? 'tags' : 'all'}
             </button>
             </div>
-            {rows()}
+            {gigsToShow.map(gig => <Gig key={gig.id} gig={gig}/>)}
+
         </div>
     )
 
 }
-
-
-const Gig = (props) => {
-    return(
-        <div className="col-3 col-sm-3 col-md-3 box" >
-            <img className=" py-5" src={props.gig.img} alt={props.gig.name}/>
-            <div className="info pt-4">
-                <h2>{props.gig.name}</h2>
-                <h3>{props.gig.desc}</h3>
-                <br/>
-                <p>{props.gig.date}</p>
-            </div>
-        </div>
-    )
-}
+export default Gigs;
 
