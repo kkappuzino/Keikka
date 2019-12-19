@@ -4,9 +4,9 @@ import '../style/basic.scss';
 
 const Gig = ({gig}) => {
     return(
-    <div className="col-3 col-sm-3 col-md-3" >
+    <div className="col-4 col-sm-4 col-md-4 box" >
         <img className="py-5" src={gig.img} alt={gig.name}/>
-        <div className="pt-4">
+        <div className="pt-4 info">
             <h2>{gig.name}</h2>
             <h3>{gig.date}</h3>
             <br/>
@@ -21,7 +21,6 @@ const Gig = ({gig}) => {
 
 const Gigs = () => {
     const [gigs, setGigs] = useState([]) 
-    const [newGig, setNewGig] = useState('') 
     const [showAll, setShowAll] = useState(true)
 
     useEffect(() => {
@@ -39,31 +38,16 @@ const Gigs = () => {
     ? gigs
     : gigs.filter(gig => gig.tags.includes('music'))
 
-    const handleGigChange = (event) => {
-        console.log(event.target.value)
-        setNewGig(event.target.value)
-    }
-
-    const addGig = (event) => {
-        event.preventDefault()
-        const gigObject = {
-            name: newGig,
-            date: new Date().toISOString(),
-            id: gigs.length + 1,
-        }
-
-        setGigs(gigs.concat(gigObject))
-        setNewGig('')
-    }
-
     return (
         <div className="row">
             <div>
-            <button onClick={() => setShowAll(!showAll)}>
-                show {showAll ? 'tags' : 'all'}
-            </button>
+                <button onClick={() => setShowAll(!showAll)}>
+                    show {showAll ? 'tags' : 'all'}
+                </button>
             </div>
-            {gigsToShow.map(gig => <Gig key={gig.id} gig={gig}/>)}
+            <div>
+                {gigsToShow.map(gig => <Gig key={gig.id} gig={gig}/>)}
+            </div>
 
         </div>
     )
