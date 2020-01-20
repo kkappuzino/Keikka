@@ -5,13 +5,15 @@ import '../style/basic.scss';
 const Gig = ({gig}) => {
     return(
     <div className="col-4 col-sm-4 col-md-4 box" >
-        <img className="py-5" src={gig.img} alt={gig.name}/>
+        <img className="py-5" src={gig.image} alt={gig.name}/>
         <div className="pt-4 info">
             <h2>{gig.name}</h2>
             <h3>{gig.date}</h3>
             <br/>
             <p>{gig.desc}</p>
             <p>{gig.tags}</p>
+
+            
         </div>
     </div>
     )

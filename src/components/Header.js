@@ -28,7 +28,7 @@ export default function Header() {
                 renders the first one that matches the current URL. */}
             <Switch>
               <Route path="/gigs">
-                <UpdateGigs />
+                <UpdateGig />
               </Route>
               <Route path="/">
                 <Home />
@@ -44,5 +44,9 @@ export default function Header() {
     }
     
     function UpdateGig() {
-      return <h2>Update Gigs</h2>;
+      return ( 
+      <UpdateGigs>
+        <h2>Update Gigs</h2>
+      </UpdateGigs>
+      );
     }
